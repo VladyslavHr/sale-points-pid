@@ -64,3 +64,74 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+# Описание API
+
+## Открытые точки продаж
+
+### Описание
+
+Этот API позволяет получить список открытых точек продаж на основе переданных параметров запроса. Он возвращает JSON-ответ с информацией о точках продаж, которые открыты в текущее время или в выбранное время, а также соответствующий статус запроса.
+
+### Использование
+
+Метод: GET
+
+Маршрут: /api/openPointsApi
+
+#### Параметры запроса
+
+- `chooseDateTime` (необязательный): Дата и время, для которых нужно получить список открытых точек продаж. Формат даты и времени: 'Y-m-dTH:i:s'.
+- `chekOpenPoints` (необязательный): Флаг для проверки открытых точек продаж в текущее время.
+
+#### Ответ
+
+JSON-объект, содержащий:
+
+- `status`: Статус выполнения запроса («ok» или «error»).
+- `salePoints`: Список открытых точек продаж, удовлетворяющих переданным параметрам.
+- `Content-Type`: Тип содержимого, указывающий на формат передаваемых данных (здесь: application/json).
+- `X-Requested-With`: Информация о типе запроса (здесь: XMLHttpRequest).
+- `chekOpenPoints` (если передан): Флаг, указывающий на проверку открытых точек продаж в текущее время.
+- `chooseDateTime` (если передан): Выбранная дата и время для проверки открытых точек продаж.
+
+### Пример запроса
+
+### Пример ответа
+
+```json
+{
+  "status": "ok",
+  "salePoints": [
+    {
+      "id": 1,
+      "sale_point": "dp1",
+      "type": "ticketMachine",
+      "name": "Petřín",
+      "address": "Lanovka na Petřín, Praha 1",
+      "lat": 50.08,
+      "lon": 14.4,
+      "services": 196608,
+      "pay_methods": 5,
+      "link": "",
+      "created_at": "2023-10-31T12:38:38.000000Z",
+      "updated_at": "2023-10-31T12:38:38.000000Z",
+      "open_hours": [
+        {
+          "id": 1,
+          "sale_point_id": "1",
+          "day_from": 0,
+          "day_to": 6,
+          "hours": "9:00-23:30",
+          "created_at": "2023-10-31T12:38:38.000000Z",
+          "updated_at": "2023-10-31T12:38:38.000000Z"
+        }
+      ]
+    }
+  ],
+  "Content-Type": "application/json",
+  "X-Requested-With": "XMLHttpRequest",
+  "chekOpenPoints": 1,
+  "chooseDateTime": "2023-11-10T00:26"
+}
