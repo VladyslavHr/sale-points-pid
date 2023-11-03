@@ -78,7 +78,7 @@ Tento API umožňuje uložit data z JSON souboru do databáze. Načte obsah soub
 
 Metoda: GET
 
-Cesta: /saveJsonToDatabaseApi
+Cesta: /api/saveJsonToDatabaseApi
 
 #### Odpověď
 

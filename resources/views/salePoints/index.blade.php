@@ -27,40 +27,6 @@
 
     <div class="row">
 
-
-        {{-- {{ $salePoints->links('pagination::bootstrap-5') }} --}}
-        {{-- <nav>
-            <ul class="pagination">
-                <li class="page-item {{ $salePoints->previousPageUrl() ? '' : 'disabled' }}">
-                    <a class="page-link" href="{{ $salePoints->previousPageUrl() }}">Previous</a>
-                </li>
-
-                @if($salePoints->currentPage() > 3)
-                    <li class="page-item"><a class="page-link" href="{{ $salePoints->url(1) }}">1</a></li>
-                @endif
-                @if($salePoints->currentPage() > 4)
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                @endif
-                @foreach(range(1, $salePoints->lastPage()) as $i)
-                    @if($i >= $salePoints->currentPage() - 2 && $i <= $salePoints->currentPage() + 2)
-                        <li class="page-item {{ ($salePoints->currentPage() == $i) ? 'active' : '' }}">
-                            <a class="page-link" href="{{ $salePoints->url($i) }}">{{ $i }}</a>
-                        </li>
-                    @endif
-                @endforeach
-                @if($salePoints->currentPage() < $salePoints->lastPage() - 3)
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                @endif
-                @if($salePoints->currentPage() < $salePoints->lastPage() - 2)
-                    <li class="page-item"><a class="page-link" href="{{ $salePoints->url($salePoints->lastPage()) }}">{{ $salePoints->lastPage() }}</a></li>
-                @endif
-
-                <li class="page-item {{ $salePoints->nextPageUrl() ? '' : 'disabled' }}">
-                    <a class="page-link" href="{{ $salePoints->nextPageUrl() }}">Next</a>
-                </li>
-            </ul>
-        </nav> --}}
-          {{-- {{$salePoints->links()}} --}}
         @foreach ($salePoints as $point)
         @if(count($point->open_hours) > 0)
             <div class="col-lg-3">
