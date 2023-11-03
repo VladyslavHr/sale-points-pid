@@ -18,12 +18,12 @@ class SaveJsonController extends Controller
 
     public function saveJsonToDatabase()
     {
+        $this->saveJsonLocally();
         $filePath = public_path('pointsOfSale.json');
         $jsonData = file_get_contents($filePath);
         $data = json_decode($jsonData, true);
 
         foreach ($data as $item) {
-            // dump($data, $item, $item['id']);
             $salePoint = SalePoint::updateOrCreate(
                 ['sale_point' => $item['id']],
                 [
@@ -61,7 +61,6 @@ class SaveJsonController extends Controller
         $data = json_decode($jsonData, true);
 
         foreach ($data as $item) {
-            // dump($data, $item, $item['id']);
             $salePoint = SalePoint::updateOrCreate(
                 ['sale_point' => $item['id']],
                 [

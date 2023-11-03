@@ -66,39 +66,81 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-# Описание API
+# Popis API
 
-## Открытые точки продаж
+### Uložení dat z JSON do databáze
 
-### Описание
+#### Popis
 
-Этот API позволяет получить список открытых точек продаж на основе переданных параметров запроса. Он возвращает JSON-ответ с информацией о точках продаж, которые открыты в текущее время или в выбранное время, а также соответствующий статус запроса.
+Tento API umožňuje uložit data z JSON souboru do databáze. Načte obsah souboru ve formátu JSON, získá data a uloží je do příslušných tabulek v databázi. Pokud operace proběhne úspěšně, vrátí se stav "ok" a zpráva o úspěšném uložení dat do databáze.
 
-### Использование
+#### Použití
 
-Метод: GET
+Metoda: GET
 
-Маршрут: /api/openPointsApi
+Cesta: /saveJsonToDatabaseApi
 
-#### Параметры запроса
+#### Odpověď
 
-- `chooseDateTime` (необязательный): Дата и время, для которых нужно получить список открытых точек продаж. Формат даты и времени: 'Y-m-dTH:i:s'.
-- `chekOpenPoints` (необязательный): Флаг для проверки открытых точек продаж в текущее время.
+JSON objekt obsahující:
 
-#### Ответ
+- `status`: Stav provádění operace ("ok" nebo "error").
+- `message`: Zpráva označující výsledek operace uložení dat do databáze.
 
-JSON-объект, содержащий:
+#### Parametry
 
-- `status`: Статус выполнения запроса («ok» или «error»).
-- `salePoints`: Список открытых точек продаж, удовлетворяющих переданным параметрам.
-- `Content-Type`: Тип содержимого, указывающий на формат передаваемых данных (здесь: application/json).
-- `X-Requested-With`: Информация о типе запроса (здесь: XMLHttpRequest).
-- `chekOpenPoints` (если передан): Флаг, указывающий на проверку открытых точек продаж в текущее время.
-- `chooseDateTime` (если передан): Выбранная дата и время для проверки открытых точек продаж.
+Nejsou k dispozici žádné parametry.
 
-### Пример запроса
+#### Příklad požadavku
 
-### Пример ответа
+/api/saveJsonToDatabaseApi
+
+#### Příklad úspěšné odpovědi
+
+```json
+{
+  "status": "ok",
+  "message": "Data byla úspěšně uložena do databáze."
+}
+```
+
+## Otevřené prodejní body
+
+### Popis
+
+Tato API umožňuje získat seznam otevřených prodejních bodů na základě předaných parametrů požadavku. Vrací JSON odpověď s informacemi o prodejních bodech, které jsou otevřeny v aktuálním čase nebo ve vybraném čase, a odpovídajícím stavem požadavku.
+
+### Použití
+
+Metoda: GET
+
+Cesta: /api/openPointsApi
+
+#### Parametry požadavku
+
+- `chooseDateTime` (nepovinný): Datum a čas, pro které chcete získat seznam otevřených prodejních míst. Formát data a času: 'Y-m-dTH:i:s'.
+- `chekOpenPoints` (nepovinný): Příznak pro kontrolu otevřených prodejních míst v aktuálním čase.
+
+#### Odpověď
+
+JSON objekt obsahující:
+
+- `status`: Stav provedení požadavku („ok“ nebo „error“).
+- `salePoints`: Seznam otevřených prodejních bodů, které splňují předané parametry.
+- `Content-Type`: Typ obsahu označující formát přenášených dat (zde: application/json).
+- `X-Requested-With`: Informace o typu požadavku (zde: XMLHttpRequest).
+- `chekOpenPoints` (pokud je předán): Příznak, který označuje kontrolu otevřených prodejních bodů v aktuálním čase.
+- `chooseDateTime` (pokud je předán): Vybrané datum a čas pro kontrolu otevřených prodejních bodů.
+
+### Příklad požadavku
+
+/api/openPoints?chooseDateTime=2023-11-10T10:26
+
+nebo
+
+/api/openPoints?chekOpenPoints=1
+
+### Příklad odpovědi
 
 ```json
 {
@@ -133,5 +175,6 @@ JSON-объект, содержащий:
   "Content-Type": "application/json",
   "X-Requested-With": "XMLHttpRequest",
   "chekOpenPoints": 1,
-  "chooseDateTime": "2023-11-10T00:26"
+  "chooseDateTime": "2023-11-10T10:26"
 }
+```

@@ -148,41 +148,14 @@ class SalePointController extends Controller
                 $salePoints = $filteredSalePoints;
             }
 
-        //     $responseData = [
-        //         'status' => 'ok',
-        //         'salePoints' => $salePoints,
-        //     ];
-
-        //     if ($request->has('chooseDateTime')) {
-        //         $responseData['chooseDateTime'] = $request->input('chooseDateTime');
-        //     }
-
-        //     if ($request->has('chekOpenPoints')) {
-        //         $responseData['chekOpenPoints'] = 1;
-        //     }
-
-        //     return response()->json($responseData, 200, [
-        //         'Content-Type' => 'application/json',
-        //         'X-Requested-With' => 'XMLHttpRequest',
-        //     ], JSON_UNESCAPED_UNICODE);
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => 'Internal Server Error',
-        //     ], 500, [
-        //         'Content-Type' => 'application/json',
-        //         'X-Requested-With' => 'XMLHttpRequest',
-        //     ], JSON_UNESCAPED_UNICODE);
-        // }
-
             return response()->json([
                 'status' => 'ok',
                 'salePoints' => $salePoints,
             ], 200, [
                 'Content-Type' => 'application/json',
                 'X-Requested-With' => 'XMLHttpRequest',
-                'chekOpenPoints' => 1,
-                'chooseDateTime' => '2023-11-10T00%3A26',
+                'chekOpenPoints' => $request->input('chekOpenPoints'),
+                'chooseDateTime' => $request->input('chooseDateTime'),
             ], JSON_UNESCAPED_UNICODE);
         } catch (\Exception $e) {
             return response()->json([
