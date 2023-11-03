@@ -78,7 +78,7 @@ Tento API umožňuje uložit data z JSON souboru do databáze. Načte obsah soub
 
 Metoda: GET
 
-Cesta: /api/saveJsonToDatabaseApi
+Cesta: /api/save-data
 
 #### Odpověď
 
@@ -134,11 +134,11 @@ JSON objekt obsahující:
 
 ### Příklad požadavku
 
-/api/openPoints?chooseDateTime=2023-11-10T10:26
+/api/sale-points?chooseDateTime=2023-11-10T10:26
 
 nebo
 
-/api/openPoints?chekOpenPoints=1
+/api/sale-points?chekOpenPoints=1
 
 ### Příklad odpovědi
 
