@@ -24,6 +24,7 @@ class SalePointController extends Controller
 
             $chooseDateTime = Carbon::parse($request->input('chooseDateTime'));
             $dayOfWeek = $chooseDateTime->dayOfWeek;
+            dump($dayOfWeek);
             $timeOnly = $chooseDateTime->format('H:i');
             $timeOnlyInSeconds = strtotime($timeOnly);
 
@@ -80,80 +81,6 @@ class SalePointController extends Controller
         ]);
     }
 
-    // public function openPointsApi(Request $request) {
-    //     $currentDateTime = Carbon::now();
-
-    //     $currentFormattedTime = $currentDateTime->format('H:i');
-    //     $currentTimeInSeconds = strtotime($currentFormattedTime);
-
-    //     $currentDayOfWeek = $currentDateTime->dayOfWeek;
-
-    //     $openSalePoints = [];
-
-    //     $salePoints = SalePoint::with('open_hours')->get();
-
-    //     if ($request->has('chooseDateTime')) {
-
-    //         $chooseDateTime = Carbon::parse($request->input('chooseDateTime'));
-    //         $dayOfWeek = $chooseDateTime->dayOfWeek;
-    //         $timeOnly = $chooseDateTime->format('H:i');
-    //         $timeOnlyInSeconds = strtotime($timeOnly);
-
-    //         $salePoints = SalePoint::with(['open_hours' => function ($query) use ($dayOfWeek) {
-    //             $query->where('day_from', '<=', $dayOfWeek)->where('day_to', '>=', $dayOfWeek);
-    //         }])->get();
-
-    //         $filteredSalePoints = [];
-    //         foreach ($salePoints as $point) {
-    //             foreach ($point->open_hours as $openHour) {
-    //                 $intervals = explode(',', $openHour->hours);
-    //                 foreach ($intervals as $interval) {
-    //                     $pre_times = str_replace('–', '-', $interval);
-    //                     $times = explode('-', $pre_times);
-    //                     $startTime = strtotime($times[0]);
-    //                     $endTime = strtotime($times[1]);
-    //                     if ($timeOnlyInSeconds >= $startTime && $timeOnlyInSeconds <= $endTime) {
-    //                         $filteredSalePoints[] = $point;
-    //                         break;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         $salePoints = $filteredSalePoints;
-    //     }
-
-    //     if ($request->has('chekOpenPoints')) {
-    //         $salePoints = SalePoint::with(['open_hours' => function ($query) use ($currentDayOfWeek) {
-    //             $query->where('day_from', '<=', $currentDayOfWeek)->where('day_to', '>=', $currentDayOfWeek);
-    //         }])->get();
-
-    //         $filteredSalePoints = [];
-    //         foreach ($salePoints as $point) {
-    //             foreach ($point->open_hours as $openHour) {
-    //                 $intervals = explode(',', $openHour->hours);
-    //                 foreach ($intervals as $interval) {
-    //                     $pre_times = str_replace('–', '-', $interval);
-    //                     $times = explode('-', $pre_times);
-    //                     $startTime = strtotime($times[0]);
-    //                     $endTime = strtotime($times[1]);
-    //                     if ($currentTimeInSeconds >= $startTime && $currentTimeInSeconds <= $endTime) {
-    //                         $filteredSalePoints[] = $point;
-    //                         break;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         $salePoints = $filteredSalePoints;
-    //     }
-
-    //     return response()->json([
-    //         'status' => 'ok',
-    //         'salePoints' => $salePoints,
-    //     ], 200, [], 128);
-    // }
-
-
-
     public function openPointsApi(Request $request) {
         try {
             $currentDateTime = Carbon::now();
@@ -169,6 +96,7 @@ class SalePointController extends Controller
 
             if ($request->has('chooseDateTime')) {
                 $chooseDateTime = Carbon::parse($request->input('chooseDateTime'));
+                // dump($chooseDateTime);
                 $dayOfWeek = $chooseDateTime->dayOfWeek;
                 $timeOnly = $chooseDateTime->format('H:i');
                 $timeOnlyInSeconds = strtotime($timeOnly);
@@ -220,12 +148,41 @@ class SalePointController extends Controller
                 $salePoints = $filteredSalePoints;
             }
 
+        //     $responseData = [
+        //         'status' => 'ok',
+        //         'salePoints' => $salePoints,
+        //     ];
+
+        //     if ($request->has('chooseDateTime')) {
+        //         $responseData['chooseDateTime'] = $request->input('chooseDateTime');
+        //     }
+
+        //     if ($request->has('chekOpenPoints')) {
+        //         $responseData['chekOpenPoints'] = 1;
+        //     }
+
+        //     return response()->json($responseData, 200, [
+        //         'Content-Type' => 'application/json',
+        //         'X-Requested-With' => 'XMLHttpRequest',
+        //     ], JSON_UNESCAPED_UNICODE);
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'Internal Server Error',
+        //     ], 500, [
+        //         'Content-Type' => 'application/json',
+        //         'X-Requested-With' => 'XMLHttpRequest',
+        //     ], JSON_UNESCAPED_UNICODE);
+        // }
+
             return response()->json([
                 'status' => 'ok',
                 'salePoints' => $salePoints,
             ], 200, [
                 'Content-Type' => 'application/json',
                 'X-Requested-With' => 'XMLHttpRequest',
+                'chekOpenPoints' => 1,
+                'chooseDateTime' => '2023-11-10T00%3A26',
             ], JSON_UNESCAPED_UNICODE);
         } catch (\Exception $e) {
             return response()->json([

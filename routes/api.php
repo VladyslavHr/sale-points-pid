@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 Route::get('/sale-points', [App\Http\Controllers\SalePointController::class, 'openPointsApi']);
+Route::get('/save-data', [App\Http\Controllers\SaveJsonController::class, 'saveJsonToDatabaseApi']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
