@@ -152,8 +152,6 @@ class SalePointController extends Controller
                 'status' => 'ok',
                 'salePoints' => $salePoints,
             ], 200, [
-                'Content-Type' => 'application/json',
-                'X-Requested-With' => 'XMLHttpRequest',
                 'chekOpenPoints' => $request->input('chekOpenPoints'),
                 'chooseDateTime' => $request->input('chooseDateTime'),
             ], JSON_UNESCAPED_UNICODE);
@@ -161,9 +159,6 @@ class SalePointController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Internal Server Error',
-            ], 500, [
-                'Content-Type' => 'application/json',
-                'X-Requested-With' => 'XMLHttpRequest',
             ], JSON_UNESCAPED_UNICODE);
         }
     }
